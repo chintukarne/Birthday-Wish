@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Love!</title>
+    
+    <style>
+        /* Import cute fonts from Google */
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap');
+
+        /* --- General Styles --- */
+        body {
+            background: linear-gradient(-45deg, #fdebed, #fce1f0, #e6d4ff, #dcf3ff);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden; 
+            padding: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- The Birthday Card --- */
+        .birthday-card {
+            background: #ffffff;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            padding: 15px 25px; 
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInCard 1s ease-out 0.5s forwards;
+            transition: filter 0.3s ease-out, transform 0.3s ease-out;
+        }
+
+        @keyframes fadeInCard {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- The Header --- */
+        .header h1 {
+            font-family: 'Pacifico', cursive;
+            color: #e91e63;
+            font-size: 2.8em; 
+            margin: 0 0 8px 0; 
+        }
+
+        /* --- The Surprise Button --- */
+        .surprise-button {
+            background-color: #e91e63;
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4);
+            transition: all 0.3s ease;
+            animation: pulseButton 2s infinite;
+        }
+        .surprise-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.5);
+        }
+        @keyframes pulseButton {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Surprise Content Styling --- */
+        .surprise-content {
+            display: none;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.5s ease-out;
+        }
+        .surprise-content.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* --- The Message --- */
+        .message p {
+            font-size: 1.1em; 
+            line-height: 1.5; 
+            color: #333;
+            margin-bottom: 10px; 
+        }
+        .message .love {
+            font-weight: 700;
+            color: #e91e63;
+        }
+
+        /* --- The Animated Heart (NOW A BUTTON) --- */
+        .heart {
+            position: relative; 
+            width: 90px; 
+            height: 80px; 
+            margin: 12px auto 8px; 
+            animation: pulse 1.5s infinite;
+            cursor: pointer;
+            transition: transform 0.2s ease-out;
+        }
+        
+        .heart:hover {
+            transform: scale(1.15) !important;
+        }
+        
+        .heart:active {
+            transform: scale(1.05) !important; 
+            transition: transform 0.05s ease-in;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            left: 45px; 
+            top: 0;
+            width: 45px; 
+            height: 70px; 
+            background: #e91e63;
+            border-radius: 50px 50px 0 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+        .heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Text on the heart --- */
+        .heart-text {
+            position: absolute; 
+            top: 40%; 
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-family: 'Pacifico', cursive; 
+            font-size: 1.1em; 
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2); 
+            z-index: 10; 
+            pointer-events: none; 
+            white-space: nowrap; 
+        }
+
+        /* --- Image Gallery Styles --- */
+        #imageGallery {
+            margin-top: 10px; 
+        }
+
+        #galleryImage {
+            width: 100%;
+            max-height: 400px; 
+            object-fit: contain; 
+            border-radius: 15px;
+        }
+
+        #imageCaption {
+            font-size: 0.9em; 
+            color: #555;
+            font-style: italic;
+            margin-top: 8px; 
+            min-height: 2.5em; 
+        }
+
+        .gallery-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px; 
+        }
+        .gallery-nav button {
+            background-color: #f06292;
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 0.9em;
+            border: none;
+            border-radius: 50px;
+            padding: 8px 16px; 
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
+            transition: all 0.3s ease;
+        }
+        .gallery-nav button:hover {
+            background-color: #e91e63;
+            transform: translateY(-2px);
+        }
+        .gallery-nav button:disabled {
+            background-color: #fce4ec;
+            color: #aaa;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: translateY(0);
+        }
+
+        /* --- Floating Balloons --- */
+        .balloon { position: absolute; width: 70px; height: 90px; background-color: rgba(255, 182, 193, 0.7); border-radius: 50%; bottom: -150px; opacity: 0.7; z-index: 5; animation: floatUp 10s infinite linear; }
+        .balloon::after { content: ""; position: absolute; top: 90px; left: 50%; width: 1px; height: 100px; background: #aaa; transform: translateX(-50%); }
+        .balloon-1 { left: 10%; background-color: rgba(173, 216, 230, 0.7); animation-duration: 12s; animation-delay: 1s; }
+        .balloon-2 { left: 40%; background-color: rgba(255, 255, 224, 0.7); animation-duration: 9s; animation-delay: 0s; }
+        .balloon-3 { left: 70%; background-color: rgba(221, 160, 221, 0.7); animation-duration: 11s; animation-delay: 2.5s; }
+        .balloon-4 { left: 85%; background-color: rgba(144, 238, 144, 0.7); animation-duration: 10s; animation-delay: 4s; }
+        @keyframes floatUp { 0% { bottom: -150px; transform: translateX(0); } 100% { bottom: 110vh; transform: translateX(30px); } }
+        
+        /* --- Confetti Canvas --- */
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+
+        /* --- NEW: Modal Styles --- */
+        #modalOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); 
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            z-index: 2000; 
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-out;
+        }
+        #modalOverlay.show {
+            opacity: 1;
+            pointer-events: auto; 
+        }
+        
+        #modalOverlay.show + .birthday-card {
+            filter: blur(5px);
+            transform: scale(0.95);
+        }
+
+        #modalContent {
+            background: #ffffff;
+            padding: 25px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            max-width: 450px; 
+            width: 90%;
+            
+            /* MODIFIED: Bouncier animation */
+            opacity: 0;
+            transform: scale(0.7); /* Start smaller */
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.2s ease-out;
+        }
+        
+        #modalOverlay.show #modalContent {
+            opacity: 1;
+            transform: scale(1); /* End at normal state */
+        }
+
+        #closeModalButton {
+            position: absolute;
+            top: 5px;
+            right: 15px;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #aaa;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        #closeModalButton:hover {
+            color: #333;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="balloon balloon-1"></div>
+    <div class="balloon balloon-2"></div>
+    <div class="balloon balloon-3"></div>
+    <div class="balloon balloon-4"></div>
+    
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="birthday-card">
+        
+        <div class="header">
+            <h1>Happy Birthday, Sushi!</h1>
+        </div>
+        
+        <button id="surpriseButton" class="surprise-button">
+            Click for a surprise! 💖
+        </button>
+
+        <div id="surpriseContent" class="surprise-content">
+            <div class="message">
+                <p>To the most amazing, beautiful, and kind person I know.</p>
+                <p>Wishing you a day that is as special and wonderful as you are. Thank you for Being the Best Person for Me. I'm so lucky to be a part of your life.<p>
+                <p> I wish every Happiness and Positivity comes to you. Always Keep Smiling☺.. And Just Remember that I'm always there for you Cutie 🫶.</p>
+                <p class="love">Happiest Birthday Cutie Pie ❤️</p>
+            </div>
+            
+            <div class="heart" id="heartButton">
+                <span class="heart-text">Tap me</span>
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="modalOverlay">
+        <div id="modalContent">
+            <button id="closeModalButton">&times;</button>
+            
+            <div id="imageGallery">
+                <img id="galleryImage" src="" alt="Our Memories">
+                <p id="imageCaption"></p>
+                <div class="gallery-nav">
+                    <button id="prevButton">&larr; Previous</button>
+                    <button id="nextButton">Next &rarr;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <script>
+        // --- All JavaScript is unchanged ---
+
+        // Get the button and the hidden content
+        const surpriseButton = document.getElementById('surpriseButton');
+        const surpriseContent = document.getElementById('surpriseContent');
+        const confettiCanvas = document.getElementById('confetti-canvas');
+        
+        const myConfetti = confetti.create(confettiCanvas, {
+            resize: true,
+            useWorker: true
+        });
+
+        surpriseButton.addEventListener('click', () => {
+            surpriseButton.style.display = 'none';
+            surpriseContent.classList.add('show');
+            launchConfetti();
+        });
+
+        function launchConfetti() {
+            myConfetti({ particleCount: 150, spread: 180, origin: { y: 0.6 } });
+            setTimeout(() => { myConfetti({ particleCount: 100, angle: 60, spread: 80, origin: { x: 0 } }); }, 200);
+            setTimeout(() => { myConfetti({ particleCount: 100, angle: 120, spread: 80, origin: { x: 1 } }); }, 200);
+        }
+
+        // --- JAVASCRIPT FOR IMAGE GALLERY ---
+        const galleryData = [
+            { 
+                src: 'https://i.postimg.cc/GpkfY8HD/her-game-avatar.jpg', 
+                caption: 'These are the images which I have of you 🔫🎮',
+                alt: 'Her game avatar' 
+            },
+            { 
+                src: 'https://i.postimg.cc/7Y1hhXN5/her-bitmoji.jpg', 
+                caption: 'These are the images which I have of you 🐷',
+                alt: 'Her bitmoji' 
+            },
+            { 
+                src: 'https://i.postimg.cc/h4TPZM6x/together-bitmoji.jpg', 
+                caption: 'This is the only Image where we are together! ❤️',
+                alt: 'Our bitmojis together'
+            }
+        ];
+        
+        let currentImageIndex = 0;
+
+        const heartButton = document.getElementById('heartButton');
+        const imageGallery = document.getElementById('imageGallery');
+        const galleryImage = document.getElementById('galleryImage');
+        const imageCaption = document.getElementById('imageCaption');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeModalButton = document.getElementById('closeModalButton');
+
+        function showImage(index) {
+            galleryImage.src = galleryData[index].src;
+            galleryImage.alt = galleryData[index].alt;
+            imageCaption.textContent = galleryData[index].caption;
+            
+            prevButton.disabled = (index === 0);
+            nextButton.disabled = (index === galleryData.length - 1);
+        }
+
+        heartButton.addEventListener('click', () => {
+            modalOverlay.classList.add('show'); 
+            currentImageIndex = 0;
+            showImage(currentImageIndex); 
+        });
+
+        closeModalButton.addEventListener('click', () => {
+            modalOverlay.classList.remove('show');
+        });
+        
+        modalOverlay.addEventListener('click', (event) => {
+            if (event.target === modalOverlay) {
+                modalOverlay.classList.remove('show');
+            }
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (currentImageIndex < galleryData.length - 1) {
+                currentImageIndex++;
+                showImage(currentImageIndex);
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                showImage(currentImageIndex);
+            }
+        });
+
+    </script>
+    
+</body>
+</html>
